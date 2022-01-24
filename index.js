@@ -14,18 +14,22 @@ const cryptoSites = [
   {
     name: "Coindesk",
     address: "https://www.coindesk.com/",
+    base: "https://www.coindesk.com",
   },
   {
     name: "CNBC Finance",
     address: "https://www.cnbc.com/finance/",
+    base: "https://www.cnbc.com",
   },
   {
     name: "CNN Business",
     address: "https://www.cnn.com/business",
+    base: "https://www.cnn.com",
   },
   {
     name: "Today On Chain",
     address: "https://www.todayonchain.com/",
+    base: "",
   },
 ];
 //setting array to store information in it
@@ -44,7 +48,7 @@ cryptoSites.forEach((cryptoSite) => {
       // Pushing the acquired article title, url and source into articles array
       articles.push({
         title,
-        url,
+        url: cryptoSite.base + url,
         source: cryptoSite.name,
       });
     });
@@ -55,7 +59,7 @@ cryptoSites.forEach((cryptoSite) => {
       // Pushing the acquired article title, url and source into articles array
       articles.push({
         title,
-        url,
+        url: cryptoSite.base + url,
         source: cryptoSite.name,
       });
     });
@@ -71,5 +75,8 @@ app.get("/", (req, res) => {
 app.get("/news", (req, res) => {
   res.json(articles);
 });
+app.get('/news/:cryptoSiteId', async()=> {
+  
+})
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
