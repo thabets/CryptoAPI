@@ -31,6 +31,31 @@ const cryptoSites = [
     address: "https://www.todayonchain.com/",
     base: "",
   },
+  {
+    name: "CryptoSlate",
+    address: "https://cryptoslate.com/",
+    base: "",
+  },
+  {
+    name: "NewsBTC",
+    address: "https://www.newsbtc.com/",
+    base: "",
+  },
+  {
+    name: "BitcoinMagazine",
+    address: "https://bitcoinmagazine.com/",
+    base: "https://bitcoinmagazine.com",
+  },
+  {
+    name: "Bitcoinist",
+    address: "https://bitcoinist.com/",
+    base: "",
+  },
+  {
+    name: "Forbes",
+    address: "https://www.forbes.com/?sh=62d922b92254",
+    base: "",
+  },
 ];
 //setting array to store information in it
 const articles = [];
