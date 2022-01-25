@@ -108,7 +108,7 @@ app.get("/news", (req, res) => {
 //---------------------------------------------------------------//
 
 //Getting the information for a specific site
-app.get("/news/:cryptoSiteId", async (req, res) => {
+app.get("/news/:cryptoSiteId", (req, res) => {
   //Getting the value of cryptoSiteId and setting it to siteId
   const siteId = req.params.cryptoSiteId;
 
