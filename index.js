@@ -35,6 +35,8 @@ const cryptoSites = [
 //setting array to store information in it
 const articles = [];
 
+//This Section Deals With Compiling All The Sources Into One Page
+//---------------------------------------------------------------//
 cryptoSites.forEach((cryptoSite) => {
   axios.get(cryptoSite.address).then((response) => {
     const html = response.data;
@@ -72,9 +74,14 @@ app.get("/", (req, res) => {
 });
 
 //Get function for news url
+//This will provide all the sources within the page in json format
 app.get("/news", (req, res) => {
   res.json(articles);
 });
+
+//This Section Deals With Compiling All The Articles For A Single Source
+//---------------------------------------------------------------//
+
 //Getting the information for a specific site
 app.get("/news/:cryptoSiteId", async (req, res) => {
   //Getting the value of cryptoSiteId and setting it to siteId
@@ -82,15 +89,15 @@ app.get("/news/:cryptoSiteId", async (req, res) => {
 
   //This is to filter out the siteId address to the params that is requested
   const siteAddress = cryptoSites.filter(
-    (cryptoSite) => cryptoSite.name == siteId
+    (cryptoSite) => cryptoSite.name === siteId
   )[0].address;
 
-//This is to establish the articles base site in the case that it is required for the filtered site
+  //This is to establish the articles base site in the case that it is required for the filtered site
   const siteBase = cryptoSites.filter(
-    (cryptoSite) => cryptoSite.name == cryptoSiteId
+    (cryptoSite) => cryptoSite.name === siteId
   )[0].base;
-  
-  //
+
+  //This is to establish the scraping of information on the page of the given source and return the required information
 
   axios.get(siteAddress).then((response) => {
     const html = response.data;
@@ -104,8 +111,8 @@ app.get("/news/:cryptoSiteId", async (req, res) => {
       // Pushing the acquired article title, url and source into articles array
       specificArticles.push({
         title,
-        url: cryptoSite.base + url,
-        source: cryptoSite.name,
+        url: siteBase + url,
+        source: siteId,
       });
     });
     //Searching for word crypto in a-tag and pushing the title and webpage link into the array named articles
@@ -115,10 +122,11 @@ app.get("/news/:cryptoSiteId", async (req, res) => {
       // Pushing the acquired article title, url and source into articles array
       specificArticles.push({
         title,
-        url: cryptoSite.base + url,
-        source: cryptoSite.name,
+        url: siteBase + url,
+        source: siteId,
       });
     });
+    res.json(specificArticles);
   });
 });
 
