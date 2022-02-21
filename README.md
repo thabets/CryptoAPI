@@ -24,7 +24,10 @@ Please find the instructions to install on Rapid API.
 
 ## Technologies
 
-Technologies used are *Node *JavaScript *Rapid Api
+Technologies used are 
+*Node 
+*JavaScript 
+*Rapid Api
 
 ## Screenshot
 
@@ -65,4 +68,4 @@ This project is licensed under the following license: MIT, please click on link 
 
 ## Contact
 
-If you want to contact me you can reach me at sallam.thabet@gmail.com or .
+If you want to contact me you can reach me at sallam.thabet@gmail.com 
