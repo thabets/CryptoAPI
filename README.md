@@ -24,7 +24,8 @@ Please find the instructions to install on Rapid API.
 
 ## Technologies
 
-Technologies used are 
+Technologies used are:
+
 *Node 
 *JavaScript 
 *Rapid Api
