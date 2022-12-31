@@ -95,7 +95,9 @@ cryptoSites.forEach((cryptoSite) => {
 
 //Get function for home page + response
 app.get("/", (req, res) => {
-  res.json("Welcome to Crypto News API");
+  res.json(
+    "Welcome to Crypto News API, to get the articles information please feel free to add '/news' to the end of the link above"
+  );
 });
 
 //Get function for news url
