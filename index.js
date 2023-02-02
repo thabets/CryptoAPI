@@ -4,7 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 //setting the port #
-const PORT = 5000;
+const PORT = 8000;
 
 //setting express as app
 const app = express();
@@ -19,6 +19,11 @@ const cryptoSites = [
   {
     name: "CNBCFinance",
     address: "https://www.cnbc.com/finance/",
+    base: "https://www.cnbc.com",
+  },
+  {
+    name: "CNBCTech",
+    address: "https://www.cnbc.com/technology/",
     base: "https://www.cnbc.com",
   },
   {
@@ -154,7 +159,7 @@ app.get("/news/:cryptoSiteId", (req, res) => {
       });
     });
     res.json(specificArticles);
-  });
+  }).catch(err=>console.log(err));
 });
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
