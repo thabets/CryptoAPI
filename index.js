@@ -4,7 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 //setting the port #
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 //setting express as app
 const app = express();
@@ -131,35 +131,40 @@ app.get("/news/:cryptoSiteId", (req, res) => {
 
   //This is to establish the scraping of information on the page of the given source and return the required information
 
-  axios.get(siteAddress).then((response) => {
-    const html = response.data;
-    const $ = cheerio.load(html);
-    const specificArticles = [];
+  axios
+    .get(siteAddress)
+    .then((response) => {
+      const html = response.data;
+      const $ = cheerio.load(html);
+      const specificArticles = [];
 
-    $('a:contains("Bitcoin")', html).each(function () {
-      const title = $(this).text();
-      const url = $(this).attr("href");
+      $('a:contains("Bitcoin")', html).each(function () {
+        const title = $(this).text();
+        const url = $(this).attr("href");
 
-      // Pushing the acquired article title, url and source into articles array
-      specificArticles.push({
-        title,
-        url: siteBase + url,
-        source: siteId,
+        // Pushing the acquired article title, url and source into articles array
+        specificArticles.push({
+          title,
+          url: siteBase + url,
+          source: siteId,
+        });
       });
-    });
-    //Searching for word crypto in a-tag and pushing the title and webpage link into the array named articles
-    $('a:contains("Crypto")', html).each(function () {
-      const title = $(this).text();
-      const url = $(this).attr("href");
-      // Pushing the acquired article title, url and source into articles array
-      specificArticles.push({
-        title,
-        url: siteBase + url,
-        source: siteId,
+      //Searching for word crypto in a-tag and pushing the title and webpage link into the array named articles
+      $('a:contains("Crypto")', html).each(function () {
+        const title = $(this).text();
+        const url = $(this).attr("href");
+        // Pushing the acquired article title, url and source into articles array
+        specificArticles.push({
+          title,
+          url: siteBase + url,
+          source: siteId,
+        });
       });
+      res.json(specificArticles);
+    })
+    .catch((error) => {
+      console.log(error);
     });
-    res.json(specificArticles);
-  }).catch(err=>console.log(err));
 });
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
